@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: my_postgres
+    restart: unless-stopped
+    shm_size: 256mb
+    environment:
+      POSTGRES_USER: dev-user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: postgres-db
+      # if not local:
+      # POSTGRES_HOST_AUTH_METHOD: scram-sha-256
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+
+volumes:
+  postgres_data:
