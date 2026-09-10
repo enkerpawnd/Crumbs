@@ -30,10 +30,10 @@ ensure-deps:
 	@$(MAKE) check-deps 2>/dev/null || ($(MAKE) install-deps && $(MAKE) check-deps 2>/dev/null)
 
 migrate: ensure-deps
-	migrate create -ext sql -dir db/migrations -seq $(name)
+	migrate create -ext sql -dir internal/db/migrations -seq $(name)
 
 migrate-up: ensure-deps
-	migrate -path db/migrations -database "$(DATABASE_URL)?sslmode=disable" up
+	migrate -path internal/db/migrations -database "$(DATABASE_URL)?sslmode=disable" up
 
 migrate-down: ensure-deps
-	migrate -path db/migrations -database "$(DATABASE_URL)?sslmode=disable" down 1
+	migrate -path internal/db/migrations -database "$(DATABASE_URL)?sslmode=disable" down 1
